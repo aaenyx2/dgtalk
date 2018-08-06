@@ -71,13 +71,14 @@ public class PeopleFragment extends Fragment { // V4.fragment 말고 app.fragmen
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { // 몇번째 view holdder에 몇번째(position) 데이터베이스의 자료를 출력해줄지 설정
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) { // 몇번째 view holdder에 몇번째(position) 데이터베이스의 자료를 출력해줄지 설정
             // usermodel 안에 image 파일을 저장한다면, glide를 통해 읽어올 수도 있다.
             ((CutomViewHolder)holder).textView.setText(userModels.get(position).username);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), MessageActivity.class);
+                    intent.putExtra("destinationUid", userModels.get(position).uid); // 해당 position의 userModel의 uid를 받아 intent를 이용해 Message Activity로 넘겨준다.
                     ActivityOptions activityOptions = ActivityOptions.makeCustomAnimation(v.getContext(), R.anim.fromright, R.anim.toleft); // 애니메이션 적용. 들어오는 뷰는 from right anim, 나가는 뷰는 to left anim.
                     startActivity(intent, activityOptions.toBundle()); //intent와 activity options 객체를 함께 인자로
                 }
