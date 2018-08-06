@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "98860787597",
+    "firebase_url": "https://dgtalk-97753.firebaseio.com",
+    "project_id": "dgtalk-97753",
+    "storage_bucket": "dgtalk-97753.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98860787597:android:7eaea97a949dc627",
+        "android_client_info": {
+          "package_name": "com.dgistalk.dgtalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98860787597-e0f9p7b62cnnn89b4rr4820jdd6us1mf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dgistalk.dgtalk",
+            "certificate_hash": "2f2ff9826172f9b5d41638a952db8e40cb72b08a"
+          }
+        },
+        {
+          "client_id": "98860787597-q6h1htvtcagrbdp6o2u8tueg2ljgec1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVSSF0Qxav3vcs_EXkR_YY8vpWwxx8BG8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98860787597-q6h1htvtcagrbdp6o2u8tueg2ljgec1p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
