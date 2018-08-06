@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.dgistalk.dgtalk.model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,6 +45,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(email.getText().toString()==null || password.getText().toString()==null||name.getText().toString()==null){
+                    Toast.makeText(SignupActivity.this, "마저 적어주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 FirebaseAuth.getInstance()
@@ -54,7 +56,8 @@ public class SignupActivity extends AppCompatActivity {
                                 UserModel userModel = new UserModel();
                                 userModel.username=name.getText().toString();
                                 String uid = task.getResult().getUser().getUid();
-                                FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel); //
+                                FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
+                                //Toast.makeText(SignupActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
