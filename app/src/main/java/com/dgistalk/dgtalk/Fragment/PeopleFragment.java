@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.dgistalk.dgtalk.R;
 import com.dgistalk.dgtalk.chat.MessageActivity;
 import com.dgistalk.dgtalk.model.UserModel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,12 +47,17 @@ public class PeopleFragment extends Fragment { // V4.fragment 말고 app.fragmen
         public List<UserModel> userModels; // 유저 목록으로 쓰일 list 선언
         public PeopleFragmentRecyclerViewAdapter() { // 생성자 안에서 친구 생성에 따라 유저 목록을 업데이트하는 기능
             userModels = new ArrayList<>(); // 유저 목록으로 쓰일 list 선언
+            final String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() { // users라는 이름의 table이 추가되는지 판단하는 listener
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // 이벤트 발생 시
                     userModels.clear(); // 유저 목록을 일단 초기화한 후
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){ // FirebaseDatabase 안에서 반복문을 돌려가며 유저 목록에다가 UserModel 객체들을 집어넣는다
-                        userModels.add(snapshot.getValue(UserModel.class));
+                        UserModel userModel = snapshot.getValue(UserModel.class);
+                        if(userModel.uid.equals(myUid)){
+                            continue; // 만약 userModel의 uid가 현재 접속 중인 유저의 uid와 같을 경우에는 채팅방의 친구목록에 이 사람 정보를(= 즉 나를) 출력하지 않음
+                        }
+                        userModels.add(userModel);
                     }
                     notifyDataSetChanged(); //새로고침
                 }
