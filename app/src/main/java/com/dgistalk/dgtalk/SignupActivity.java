@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.dgistalk.dgtalk.model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,10 +57,16 @@ public class SignupActivity extends AppCompatActivity {
                                 UserModel userModel = new UserModel();
                                 userModel.username=name.getText().toString();
                                 String uid = task.getResult().getUser().getUid();
-                                FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
+                                FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        SignupActivity.this.finish();
+                                    }
+                                });
                                 //Toast.makeText(SignupActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
                             }
                         });
+
             }
         });
     }
