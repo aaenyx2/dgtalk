@@ -48,7 +48,7 @@ public class PeopleFragment extends Fragment { // V4.fragment 말고 app.fragmen
         public PeopleFragmentRecyclerViewAdapter() { // 생성자 안에서 친구 생성에 따라 유저 목록을 업데이트하는 기능
             userModels = new ArrayList<>(); // 유저 목록으로 쓰일 list 선언
             final String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() { // users라는 이름의 table이 추가되는지 판단하는 listener
+            FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() { // users라는 이름의 table에 event가 발생하는지 주시하는 listener
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // 이벤트 발생 시
                     userModels.clear(); // 유저 목록을 일단 초기화한 후
@@ -73,13 +73,13 @@ public class PeopleFragment extends Fragment { // V4.fragment 말고 app.fragmen
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { // RecyclerView Adapter를 상속받으면 자동으로 추가되는 뷰홀더 함수.
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_friend, parent, false);
-            return new CutomViewHolder(view);
+            return new CustomViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) { // 몇번째 view holdder에 몇번째(position) 데이터베이스의 자료를 출력해줄지 설정
             // usermodel 안에 image 파일을 저장한다면, glide를 통해 읽어올 수도 있다.
-            ((CutomViewHolder)holder).textView.setText(userModels.get(position).username);
+            ((CustomViewHolder)holder).textView.setText(userModels.get(position).username);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -96,10 +96,10 @@ public class PeopleFragment extends Fragment { // V4.fragment 말고 app.fragmen
             return userModels.size();
         }
 
-        private class CutomViewHolder extends RecyclerView.ViewHolder { // 이렇게 ViewHolder를 Fragment 파일 안에 인라인으로 만들어서 써버릴 수도 있다
+        private class CustomViewHolder extends RecyclerView.ViewHolder { // 이렇게 ViewHolder를 Fragment 파일 안에 인라인으로 만들어서 써버릴 수도 있다
             public ImageView imageView;
             public TextView textView;
-            public CutomViewHolder(View view) {
+            public CustomViewHolder(View view) {
                 super(view);
                 imageView = view.findViewById(R.id.frienditem_imageview);
                 textView = view.findViewById(R.id.frienditem_textview);
